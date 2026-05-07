@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <title>PRINCESSSHOP</title>
+
+<style>
+:root {
+  /* Palet Warna Utama */
+  --princess-pink: #f8c2ca;     
+  --soft-pink-glow: #ffb7c5;     
+  --neon-pink: #ff8fa3;           
+  --dark-underground: #121212;    
+  --bg-white: #ffffff;           
+  --text-dark: #333333;            
+}
+
+/* Pengaturan Dasar Body */
+body {
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- NAVBAR: DARK UNDERGROUND WITH PINK GLOW --- */
+.navbar-dark-market {
+  background-color: var(--dark-underground) !important;
+  border-bottom: 3px solid var(--princess-pink);
+  box-shadow: 0 4px 15px rgba(248, 194, 202, 0.3); /* Glow pink ke arah bawah */
+  padding: 12px 0;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Space+Mono:wght@400&display=swap');
+
+/* Container Brand */
+.brand-container {
+  line-height: 1;
+  cursor: default;
+}
+
+/* Nama Utama: PRINCESSSHOP */
+.brand-name {
+  font-family: 'Orbitron', sans-serif; /* Font gaya futuristik/cyber */
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--princess-pink);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  /* Efek Glow Pink tipis */
+  text-shadow: 0 0 8px rgba(248, 194, 202, 0.6), 
+               2px 2px 2px rgba(0, 0, 0, 0.8);
+  transition: 0.4s;
+}
+
+/* Slogan: UNDERGROUND COMMODITIES */
+.brand-tagline {
+  font-family: 'Space Mono', monospace; /* Font gaya terminal/data */
+  font-size: 0.6rem;
+  color: #666;
+  letter-spacing: 5px; /* Jarak antar huruf sangat lebar agar elegan */
+  margin-top: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Efek Interaksi saat di-hover */
+.brand-container:hover .brand-name {
+  color: var(--neon-pink);
+  text-shadow: 0 0 15px var(--neon-pink);
+  transform: skewX(-5deg); /* Sedikit miring untuk kesan agresif */
+}
+
+.brand-container:hover .brand-tagline {
+  color: var(--princess-pink);
+}
+
+/* Brand & Logo */
+.navbar-brand {
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.navbar-brand span {
+  color: var(--princess-pink) !important;
+  text-shadow: 2px 2px 4px rgba(255, 143, 163, 0.4); /* Efek neon redup */
+}
+
+/* Search Bar: Deep Dark & Cyber Style */
+.search-market {
+  background-color: #1a1a1a !important;
+  border: 2px solid var(--princess-pink) !important;
+  color: var(--princess-pink) !important;
+  font-family: 'Courier New', Courier, monospace; /* Gaya terminal/hacking */
+  font-size: 0.9rem;
+}
+
+.search-market::placeholder {
+  color: rgba(248, 194, 202, 0.4) !important;
+}
+
+.search-market:focus {
+  box-shadow: 0 0 8px var(--soft-pink-glow) !important;
+  outline: none;
+}
+
+/* Tombol Pink (Search & Cart) */
+.btn-pink-market {
+  background-color: var(--princess-pink);
+  color: #dda4a4;
+  border: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-pink-market:hover {
+  background-color: var(--neon-pink);
+  color: #000;
+  box-shadow: 0 0 12px var(--neon-pink);
+  transform: scale(1.05);
+}
+
+/* --- FILTER KATEGORI: CLEAN WHITE STYLE --- */
+.category-tabs {
+  display: flex;
+  width: 100%;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.category-tabs .btn {
+  flex: 1;
+  border-radius: 0;
+  border: none;
+  font-weight: bold;
+  padding: 12px;
+  color: #777;
+  background: white;
+  transition: 0.3s;
+}
+
+.category-tabs .btn.active {
+  background-color: #fff !important;
+  color: var(--dark-underground) !important;
+  border-bottom: 4px solid var(--princess-pink);
+}
+
+.category-tabs .btn:hover:not(.active) {
+  background-color: #f9f9f9;
+  color: var(--neon-pink);
+}
+
+/* --- CARD PRODUK: SOFT WHITE ELEVATION --- */
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0 !important;
+  background-color: #ffffff !important;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-img-top {
+  height: 230px;
+  object-fit: cover;
+  filter: grayscale(20%); /* Memberikan kesan sedikit 'dingin' */
+  transition: 0.5s;
+}
+
+.card:hover .card-img-top {
+  filter: grayscale(0%);
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--dark-underground);
+}
+
+.price-tag {
+  color: #dc3545; /* Merah untuk harga agar kontras */
+  font-weight: 900;
+  font-size: 1.25rem;
+}
+
+/* Tombol Add to Cart (Gaya Pink Princess) */
+.btn-add-cart-logic {
+  background-color: var(--princess-pink);
+  border: none;
+  font-weight: bold;
+  color: #121212;
+  border-radius: 6px;
+  padding: 10px;
+  transition: 0.2s;
+}
+
+.btn-add-cart-logic:hover {
+  background-color: var(--neon-pink);
+  color: white;
+}
+
+/* --- MODAL KERANJANG --- */
+.modal-content {
+  border-radius: 15px;
+  border: none;
+}
+
+.modal-header {
+  background-color: var(--dark-underground);
+  color: var(--princess-pink);
+  border-bottom: 2px solid var(--princess-pink);
+}
+
+.btn-qty-market {
+  border: 1px solid var(--princess-pink) !important;
+  color: var(--princess-pink) !important;
+  background: transparent;
+}
+
+.btn-qty-market:hover {
+  background-color: var(--princess-pink) !important;
+  color: #fff !important;
+}
+
+/* Tombol Batal/Tutup (Outline Gaya Underground) */
+.btn-outline-underground {
+  border: 2px solid #444 !important;
+  color: #888 !important;
+  background: transparent;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-outline-underground:hover {
+  border-color: #666 !important;
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Tombol Konfirmasi (Glow Pink Market) */
+.btn-pink-market {
+  background-color: var(--princess-pink) !important;
+  color: #121212 !important;
+  border: none !important;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-pink-market:hover {
+  background-color: var(--neon-pink) !important;
+  box-shadow: 0 0 15px var(--neon-pink);
+  transform: translateY(-2px);
+}
+
+/* Efek Bayangan Khusus */
+.shadow-pink {
+  box-shadow: 0 4px 10px rgba(248, 194, 202, 0.2);
+}
+
+/* Menghilangkan garis pembatas default modal agar lebih bersih */
+.modal-footer {
+  border-top: 1px solid rgba(248, 194, 202, 0.1) !important;
+}
+
+/* --- ANIMASI & EFEK KHUSUS --- */
+.efect-tutop {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsivitas Tambahan */
+@media (max-width: 576px) {
+  .brand-name { font-size: 1.1rem; letter-spacing: 1px; }
+  .brand-tagline { font-size: 0.45rem; letter-spacing: 2px; }
+  .card-img-top { height: 160px; }
+}
+</style>
+</head>
+<body>
+
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark-market sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="img/logo ps.png" alt="Logo PS" 
+             class="rounded-circle bg-white me-2" 
+             style="height: 45px; width: 45px; border: 2px solid var(--princess-pink); filter: drop-shadow(0 0 5px var(--princess-pink));">
+        <div class="d-flex flex-column brand-container">
+          <span class="brand-name">PRINCESSSHOP</span>
+          <small class="brand-tagline">UNDERGROUND COMMODITIES</small>
+        </div>
+      </a>
+
+      <!-- Search Section (Muncul hanya di laptop/Lg) -->
+      <div class="mx-auto d-none d-lg-block" style="width: 40%;">
+        <div class="input-group">
+          <input type="text" class="form-control search-market" placeholder="Search commodities...">
+          <button type="button" class="btn btn-pink-market">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Cart Section -->
+      <div class="ms-auto">
+        <button class="btn btn-pink-market position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" style="border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
+          <i class="bi bi-cart3"></i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6em;">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+<div class="container py-4">
+  <h2 class="mb-4 text-center" style="color: #333; font-weight: 800;">SECRET COMMODITIES LIST</h2>
+  
+  <!-- Filter Kategori -->
+  <div class="category-tabs mb-4 shadow-sm">
+    <button type="button" class="btn active">All</button>
+    <button type="button" class="btn">Organs</button>
+    <button type="button" class="btn">Meat</button>
+  </div>
+
+  <!-- Row disesuaikan: 2 kolom di HP (col-6), 3 kolom di Laptop (col-md-4) -->
+  <div class="row g-3 g-md-4">
+    <!-- Item 1 -->
+    <div class="col-6 col-md-4 efect-tutop">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/daging manusia.jpeg" alt="Meat" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
+          <h6 class="card-title fw-bold">Premium Human Meat</h6>
+          <p class="price-tag mb-3">$ 8.00</p>
+          <div class="mt-auto">
+            <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P1" data-name="Premium Human Meat" data-price="8">
+              <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="col-6 col-md-4 efect-tutop">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/jantung manusia.jpeg" alt="Heart" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
+          <h6 class="card-title fw-bold">Fresh Human Heart</h6>
+          <p class="price-tag mb-3">$ 68,750.00</p>
+          <div class="mt-auto">
+            <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P2" data-name="Fresh Human Heart" data-price="68750">
+              <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="col-6 col-md-4 efect-tutop">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/mata manusia.jpeg" alt="Eyes" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
+          <h6 class="card-title fw-bold">Crystal Eyeballs</h6>
+          <p class="price-tag mb-3">$ 20,437.00</p>
+          <div class="mt-auto">
+            <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P3" data-name="Crystal Eyeballs" data-price="20437">
+              <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="col-6 col-md-4 efect-tutop">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/paru manusia.webp" alt="Lungs" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
+          <h6 class="card-title fw-bold">Fresh Human Lungs</h6>
+          <p class="price-tag mb-3">$ 262,500.00</p>
+          <div class="mt-auto">
+            <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P4" data-name="Fresh Human Lungs" data-price="262500">
+              <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 5 -->
+    <div class="col-6 col-md-4 efect-tutop">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/ginjal manusia.jpeg" alt="Kidney" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
+          <h6 class="card-title fw-bold">Fresh Human Kidney</h6>
+          <p class="price-tag mb-3">$ 168,750.00</p>
+          <div class="mt-auto">
+            <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P5" data-name="Fresh Human Kidney" data-price="168750">
+              <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 6 -->
+    <div class="col-6 col-md-4 efect-tutop">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/slice manusia.jpeg" alt="Slice" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
+          <h6 class="card-title fw-bold">Fresh Human Slice</h6>
+          <p class="price-tag mb-3">$ 9.38</p>
+          <div class="mt-auto">
+            <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P6" data-name="Fresh Human Slice" data-price="9.38">
+              <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Modal Keranjang -->
+  <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">ORDER CART</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" 
+        style="filter: invert(82%) sepia(21%) saturate(1022%) hue-rotate(301deg) brightness(101%) contrast(95%);">
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr class="text-muted">
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th style="width: 120px;">Qty</th>
+                  <th>Subtotal</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="cart-list"></tbody>
+            </table>
+          </div>
+          <div class="text-end mt-4">
+            <h4 class="text-muted">Total Payment:</h4>
+            <h2 class="price-tag" id="total-price">$ 0.00</h2>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pb-4">
+          <div class="d-flex w-100 gap-3">
+            <button type="button" class="btn btn-outline-underground flex-fill py-2 fw-bold" data-bs-dismiss="modal">
+              CANCEL
+            </button>
+            <button type="button" class="btn btn-pink-market flex-fill py-2 fw-bold shadow-pink" onclick="checkout()">
+              CONFIRM ORDER
+           </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    let cart = {};
+
+    document.querySelectorAll('.btn-add-cart-logic').forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+        const price = parseFloat(button.getAttribute('data-price'));
+
+        if (cart[id]) {
+          cart[id].qty += 1;
+        } else {
+          cart[id] = { name, price, qty: 1 };
+        }
+        
+        updateUI();
+        animateFeedback(button);
+      });
+    });
+
+    function updateUI() {
+      const list = document.getElementById('cart-list');
+      const countBadge = document.getElementById('cart-count');
+      const totalDisplay = document.getElementById('total-price');
+      
+      list.innerHTML = '';
+      let grandTotal = 0;
+      let totalQty = 0;
+
+      Object.keys(cart).forEach(id => {
+        const item = cart[id];
+        const subtotal = item.price * item.qty;
+        grandTotal += subtotal;
+        totalQty += item.qty;
+
+        list.innerHTML += `
+          <tr>
+            <td><span class="fw-bold">${item.name}</span></td>
+            <td>$ ${item.price.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+            <td>
+              <div class="input-group input-group-sm">
+                <button class="btn btn-qty-market btn-sm" onclick="changeQty('${id}', -1)">-</button>
+                <input type="text" class="form-control text-center" value="${item.qty}" readonly>
+                <button class="btn btn-qty-market btn-sm" onclick="changeQty('${id}', 1)">+</button>
+              </div>
+            </td>
+            <td class="price-tag">$ ${subtotal.toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger" onclick="removeItem('${id}')">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      countBadge.innerText = totalQty;
+      totalDisplay.innerText = '$ ' + grandTotal.toLocaleString('en-US', {minimumFractionDigits: 2});
+      
+      if (totalQty === 0) {
+        list.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">Cart is empty...</td></tr>';
+      }
+    }
+
+    window.changeQty = function(id, delta) {
+      if (cart[id]) {
+        cart[id].qty += delta;
+        if (cart[id].qty <= 0) delete cart[id];
+        updateUI();
+      }
+    };
+
+    window.removeItem = function(id) {
+      delete cart[id];
+      updateUI();
+    };
+
+    function animateFeedback(btn) {
+      const original = btn.innerHTML;
+      btn.style.backgroundColor = "#28a745";
+      btn.innerHTML = '<i class="bi bi-check-lg"></i> Got it';
+      setTimeout(() => {
+        btn.style.backgroundColor = "";
+        btn.innerHTML = original;
+      }, 800);
+    }
+
+function checkout() {
+  if (Object.keys(cart).length === 0) return alert("Cart is empty!");
+
+  let pesan = "Hi Admin, I want to order:\n\n";
+  let totalHarga = 0;
+
+  for (let id in cart) {
+    let item = cart[id];
+    let subtotal = item.price * item.qty;
+    pesan += `* ${item.name} (x${item.qty}) - $ ${subtotal.toLocaleString('en-US', {minimumFractionDigits: 2})}\n`;
+    totalHarga += subtotal;
+  }
+
+  pesan += `\n*Total Bill: $ ${totalHarga.toLocaleString('en-US', {minimumFractionDigits: 2})}*`;
+
+  const nomorWA = "6285943709526"; 
+  const urlWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
+
+  alert("Your order is being processed! Moving to WhatsApp...");
+  window.open(urlWA, '_blank'); 
+
+  cart = {};
+  updateUI();
+  
+  const modalElement = document.getElementById('cartModal');
+  const modalInstance = bootstrap.Modal.getInstance(modalElement);
+  if (modalInstance) modalInstance.hide();
+}
+</script>
+</body>
+</html>
