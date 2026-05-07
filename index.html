@@ -63,17 +63,11 @@ body {
   transform: skewX(-5deg);
 }
 
-/* Search & Buttons */
+/* Search Bar */
 .search-market {
   background-color: #1a1a1a !important;
   border: 2px solid var(--princess-pink) !important;
   color: var(--princess-pink) !important;
-}
-.btn-pink-market {
-  background-color: var(--princess-pink) !important;
-  color: #121212 !important;
-  border: none !important;
-  font-weight: bold;
 }
 
 /* --- FILTER KATEGORI --- */
@@ -103,6 +97,8 @@ body {
 /* --- CARD PRODUK --- */
 .card {
   border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0 !important;
   transition: all 0.3s ease;
 }
 .card:hover {
@@ -112,20 +108,19 @@ body {
 .card-img-top {
   height: 230px;
   object-fit: cover;
+  transition: 0.5s;
 }
-.price-tag { color: #dc3545; font-weight: 900; }
 
-/* --- RESPONSIVITAS KERANJANG (MOBILE) --- */
+/* --- RESPONSIVITAS TABEL KERANJANG (MOBILE) --- */
 @media (max-width: 576px) {
-  .brand-name { font-size: 1.1rem; letter-spacing: 1px; }
   .card-img-top { height: 160px; }
-
-  /* Membuat Tabel Menjadi Kartu di HP */
+  .brand-name { font-size: 1.1rem; }
+  
+  /* Transformasi tabel menjadi list di HP */
   #cart-list tr {
     display: block;
-    border-bottom: 2px solid #f0f0f0;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    border-bottom: 2px solid #f8c2ca;
+    padding: 10px 0;
   }
   #cart-list td {
     display: flex;
@@ -141,54 +136,70 @@ body {
     font-size: 0.8rem;
   }
   .modal-header .modal-title { font-size: 1rem; }
-  thead { display: none; } /* Sembunyikan header tabel di HP */
+  .table thead { display: none; } /* Sembunyikan header tabel di HP */
 }
 
-/* Animasi */
+.btn-pink-market {
+  background-color: var(--princess-pink) !important;
+  color: #121212 !important;
+  border: none;
+  font-weight: bold;
+}
+.btn-pink-market:hover {
+  background-color: var(--neon-pink) !important;
+  box-shadow: 0 0 12px var(--neon-pink);
+}
+
 .efect-tutop {
-  transition: all 0.4s ease-in-out;
+  animation: fadeIn 0.5s ease-in-out;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark-market sticky-top">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center" href="#">
-      <img src="img/logo ps.png" alt="Logo" class="rounded-circle bg-white me-2" style="height: 45px; width: 45px; border: 2px solid var(--princess-pink);">
-      <div class="d-flex flex-column brand-container">
-        <span class="brand-name">PRINCESSSHOP</span>
-        <small class="brand-tagline">UNDERGROUND COMMODITIES</small>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark-market sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="img/logo ps.png" alt="Logo" class="rounded-circle bg-white me-2" style="height: 40px; width: 40px; border: 2px solid var(--princess-pink);">
+        <div class="d-flex flex-column brand-container">
+          <span class="brand-name">PRINCESSSHOP</span>
+          <small class="brand-tagline">UNDERGROUND COMMODITIES</small>
+        </div>
+      </a>
+      <div class="ms-auto">
+        <button class="btn btn-pink-market position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" style="border-radius: 50%; width: 45px; height: 45px;">
+          <i class="bi bi-cart3"></i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6em;">0</span>
+        </button>
       </div>
-    </a>
-    <div class="ms-auto">
-      <button class="btn btn-pink-market position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" style="border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center;">
-        <i class="bi bi-cart3"></i>
-        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6em;">0</span>
-      </button>
     </div>
-  </div>
-</nav>
+  </nav>
 
 <div class="container py-4">
-  <h2 class="mb-4 text-center" style="font-weight: 800;">SECRET COMMODITIES LIST</h2>
+  <h2 class="mb-4 text-center fw-bold">SECRET COMMODITIES LIST</h2>
   
   <!-- Filter Kategori -->
-  <div class="category-tabs mb-4 shadow-sm" id="category-filter">
+  <div class="category-tabs mb-4 shadow-sm" id="filter-container">
     <button type="button" class="btn active" data-filter="all">All</button>
     <button type="button" class="btn" data-filter="Organs">Organs</button>
     <button type="button" class="btn" data-filter="Meat">Meat</button>
   </div>
 
-  <div class="row g-3 g-md-4" id="product-container">
+  <div class="row g-3 g-md-4" id="product-grid">
     <!-- Item 1 -->
     <div class="col-6 col-md-4 efect-tutop" data-category="Meat">
-      <div class="card h-100 border-0 shadow-sm">
-        <img src="img/daging manusia.jpeg" class="card-img-top" alt="Meat">
-        <div class="card-body p-2 p-md-3">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/daging manusia.jpeg" alt="Meat" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
           <h6 class="card-title fw-bold">Premium Human Meat</h6>
-          <p class="price-tag">$ 8.00</p>
+          <p class="price-tag mb-3 text-danger fw-bold">$ 8.00</p>
           <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P1" data-name="Premium Human Meat" data-price="8">
             <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
           </button>
@@ -198,11 +209,11 @@ body {
 
     <!-- Item 2 -->
     <div class="col-6 col-md-4 efect-tutop" data-category="Organs">
-      <div class="card h-100 border-0 shadow-sm">
-        <img src="img/jantung manusia.jpeg" class="card-img-top" alt="Heart">
-        <div class="card-body p-2 p-md-3">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/jantung manusia.jpeg" alt="Heart" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
           <h6 class="card-title fw-bold">Fresh Human Heart</h6>
-          <p class="price-tag">$ 68,750.00</p>
+          <p class="price-tag mb-3 text-danger fw-bold">$ 68,750.00</p>
           <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P2" data-name="Fresh Human Heart" data-price="68750">
             <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
           </button>
@@ -212,11 +223,11 @@ body {
 
     <!-- Item 3 -->
     <div class="col-6 col-md-4 efect-tutop" data-category="Organs">
-      <div class="card h-100 border-0 shadow-sm">
-        <img src="img/mata manusia.jpeg" class="card-img-top" alt="Eyes">
-        <div class="card-body p-2 p-md-3">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/mata manusia.jpeg" alt="Eyes" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
           <h6 class="card-title fw-bold">Crystal Eyeballs</h6>
-          <p class="price-tag">$ 20,437.00</p>
+          <p class="price-tag mb-3 text-danger fw-bold">$ 20,437.00</p>
           <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P3" data-name="Crystal Eyeballs" data-price="20437">
             <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
           </button>
@@ -226,11 +237,11 @@ body {
 
     <!-- Item 4 -->
     <div class="col-6 col-md-4 efect-tutop" data-category="Organs">
-      <div class="card h-100 border-0 shadow-sm">
-        <img src="img/paru manusia.webp" class="card-img-top" alt="Lungs">
-        <div class="card-body p-2 p-md-3">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/paru manusia.webp" alt="Lungs" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
           <h6 class="card-title fw-bold">Fresh Human Lungs</h6>
-          <p class="price-tag">$ 262,500.00</p>
+          <p class="price-tag mb-3 text-danger fw-bold">$ 262,500.00</p>
           <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P4" data-name="Fresh Human Lungs" data-price="262500">
             <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
           </button>
@@ -240,11 +251,11 @@ body {
 
     <!-- Item 5 -->
     <div class="col-6 col-md-4 efect-tutop" data-category="Organs">
-      <div class="card h-100 border-0 shadow-sm">
-        <img src="img/ginjal manusia.jpeg" class="card-img-top" alt="Kidney">
-        <div class="card-body p-2 p-md-3">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/ginjal manusia.jpeg" alt="Kidney" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
           <h6 class="card-title fw-bold">Fresh Human Kidney</h6>
-          <p class="price-tag">$ 168,750.00</p>
+          <p class="price-tag mb-3 text-danger fw-bold">$ 168,750.00</p>
           <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P5" data-name="Fresh Human Kidney" data-price="168750">
             <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
           </button>
@@ -254,11 +265,11 @@ body {
 
     <!-- Item 6 -->
     <div class="col-6 col-md-4 efect-tutop" data-category="Meat">
-      <div class="card h-100 border-0 shadow-sm">
-        <img src="img/slice manusia.jpeg" class="card-img-top" alt="Slice">
-        <div class="card-body p-2 p-md-3">
+      <div class="card h-100 shadow-sm border-0">
+        <img src="img/slice manusia.jpeg" alt="Slice" class="card-img-top"/>
+        <div class="card-body d-flex flex-column p-2 p-md-3">
           <h6 class="card-title fw-bold">Fresh Human Slice</h6>
-          <p class="price-tag">$ 9.38</p>
+          <p class="price-tag mb-3 text-danger fw-bold">$ 9.38</p>
           <button class="btn btn-pink-market w-100 btn-add-cart-logic" data-id="P6" data-name="Fresh Human Slice" data-price="9.38">
             <i class="bi bi-cart-plus"></i> <span class="d-none d-md-inline">Take</span>
           </button>
@@ -268,153 +279,152 @@ body {
   </div>
 </div>
 
-<!-- Modal Keranjang -->
-<div class="modal fade" id="cartModal" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold">ORDER CART</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive">
-          <table class="table align-middle">
-            <thead>
-              <tr class="text-muted">
-                <th>Item</th>
-                <th>Price</th>
-                <th style="width: 120px;">Qty</th>
-                <th>Subtotal</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="cart-list"></tbody>
-          </table>
+  <!-- Modal Keranjang -->
+  <div class="modal fade" id="cartModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">ORDER CART</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="text-end mt-4">
-          <h4 class="text-muted">Total Payment:</h4>
-          <h2 class="price-tag" id="total-price">$ 0.00</h2>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="table align-middle">
+              <thead>
+                <tr class="text-muted">
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th style="width: 120px;">Qty</th>
+                  <th>Subtotal</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="cart-list"></tbody>
+            </table>
+          </div>
+          <div class="text-end mt-4">
+            <h4 class="text-muted">Total Payment:</h4>
+            <h2 class="price-tag text-danger fw-bold" id="total-price">$ 0.00</h2>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer border-0">
-        <button type="button" class="btn btn-outline-secondary flex-fill" data-bs-dismiss="modal">CANCEL</button>
-        <button type="button" class="btn btn-pink-market flex-fill py-2 shadow-pink" onclick="checkout()">CONFIRM ORDER</button>
+        <div class="modal-footer border-0">
+          <button type="button" class="btn btn-outline-secondary flex-fill" data-bs-dismiss="modal">CANCEL</button>
+          <button type="button" class="btn btn-pink-market flex-fill py-2" onclick="checkout()">CONFIRM ORDER</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-  let cart = {};
+  <script>
+    let cart = {};
 
-  // --- LOGIKA FILTER KATEGORI ---
-  const filterBtns = document.querySelectorAll('#category-filter .btn');
-  const items = document.querySelectorAll('.efect-tutop');
+    // --- LOGIKA FILTER ---
+    const filterBtns = document.querySelectorAll('#filter-container .btn');
+    const items = document.querySelectorAll('.efect-tutop');
 
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.getAttribute('data-filter');
-
-      items.forEach(item => {
-        const cat = item.getAttribute('data-category');
-        if (filter === 'all' || cat === filter) {
-          item.style.display = 'block';
-          setTimeout(() => item.style.opacity = '1', 50);
-        } else {
-          item.style.opacity = '0';
-          setTimeout(() => item.style.display = 'none', 300);
-        }
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        items.forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
       });
     });
-  });
 
-  // --- LOGIKA KERANJANG ---
-  document.querySelectorAll('.btn-add-cart-logic').forEach(button => {
-    button.addEventListener('click', () => {
-      const id = button.getAttribute('data-id');
-      const name = button.getAttribute('data-name');
-      const price = parseFloat(button.getAttribute('data-price'));
-      if (cart[id]) { cart[id].qty += 1; } 
-      else { cart[id] = { name, price, qty: 1 }; }
-      updateUI();
-      animateFeedback(button);
-    });
-  });
+    // --- LOGIKA KERANJANG ---
+    document.querySelectorAll('.btn-add-cart-logic').forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        const name = button.getAttribute('data-name');
+        const price = parseFloat(button.getAttribute('data-price'));
 
-  function updateUI() {
-    const list = document.getElementById('cart-list');
-    const countBadge = document.getElementById('cart-count');
-    const totalDisplay = document.getElementById('total-price');
-    list.innerHTML = '';
-    let grandTotal = 0, totalQty = 0;
-
-    Object.keys(cart).forEach(id => {
-      const item = cart[id];
-      const subtotal = item.price * item.qty;
-      grandTotal += subtotal;
-      totalQty += item.qty;
-
-      // Update HTML dengan data-label untuk responsivitas mobile
-      list.innerHTML += `
-        <tr>
-          <td data-label="Item"><span class="fw-bold">${item.name}</span></td>
-          <td data-label="Price">$ ${item.price.toLocaleString('en-US')}</td>
-          <td data-label="Qty">
-            <div class="input-group input-group-sm" style="max-width: 100px;">
-              <button class="btn btn-outline-secondary" onclick="changeQty('${id}', -1)">-</button>
-              <input type="text" class="form-control text-center" value="${item.qty}" readonly>
-              <button class="btn btn-outline-secondary" onclick="changeQty('${id}', 1)">+</button>
-            </div>
-          </td>
-          <td data-label="Subtotal" class="price-tag">$ ${subtotal.toLocaleString('en-US')}</td>
-          <td data-label="Action">
-            <button class="btn btn-sm btn-danger" onclick="removeItem('${id}')"><i class="bi bi-trash"></i></button>
-          </td>
-        </tr>`;
+        if (cart[id]) {
+          cart[id].qty += 1;
+        } else {
+          cart[id] = { name, price, qty: 1 };
+        }
+        updateUI();
+        animateFeedback(button);
+      });
     });
 
-    countBadge.innerText = totalQty;
-    totalDisplay.innerText = '$ ' + grandTotal.toLocaleString('en-US', {minimumFractionDigits: 2});
-    if (totalQty === 0) list.innerHTML = '<tr><td colspan="5" class="text-center py-4">Cart is empty...</td></tr>';
-  }
+    function updateUI() {
+      const list = document.getElementById('cart-list');
+      const countBadge = document.getElementById('cart-count');
+      const totalDisplay = document.getElementById('total-price');
+      
+      list.innerHTML = '';
+      let grandTotal = 0;
+      let totalQty = 0;
 
-  window.changeQty = (id, delta) => {
-    if (cart[id]) {
+      Object.keys(cart).forEach(id => {
+        const item = cart[id];
+        const subtotal = item.price * item.qty;
+        grandTotal += subtotal;
+        totalQty += item.qty;
+
+        list.innerHTML += `
+          <tr>
+            <td data-label="Item"><span class="fw-bold">${item.name}</span></td>
+            <td data-label="Price">$ ${item.price.toLocaleString()}</td>
+            <td data-label="Qty">
+              <div class="input-group input-group-sm" style="width:100px;">
+                <button class="btn btn-outline-secondary" onclick="changeQty('${id}', -1)">-</button>
+                <input type="text" class="form-control text-center" value="${item.qty}" readonly>
+                <button class="btn btn-outline-secondary" onclick="changeQty('${id}', 1)">+</button>
+              </div>
+            </td>
+            <td data-label="Subtotal" class="fw-bold text-danger">$ ${subtotal.toLocaleString()}</td>
+            <td data-label="Action">
+              <button class="btn btn-sm btn-danger" onclick="removeItem('${id}')"><i class="bi bi-trash"></i></button>
+            </td>
+          </tr>
+        `;
+      });
+
+      countBadge.innerText = totalQty;
+      totalDisplay.innerText = '$ ' + grandTotal.toLocaleString('en-US', {minimumFractionDigits: 2});
+      if (totalQty === 0) list.innerHTML = '<tr><td colspan="5" class="text-center py-4">Cart is empty...</td></tr>';
+    }
+
+    window.changeQty = (id, delta) => {
       cart[id].qty += delta;
       if (cart[id].qty <= 0) delete cart[id];
       updateUI();
+    };
+
+    window.removeItem = (id) => {
+      delete cart[id];
+      updateUI();
+    };
+
+    function animateFeedback(btn) {
+      const original = btn.innerHTML;
+      btn.classList.replace('btn-pink-market', 'btn-success');
+      btn.innerHTML = '<i class="bi bi-check-lg"></i>';
+      setTimeout(() => {
+        btn.classList.replace('btn-success', 'btn-pink-market');
+        btn.innerHTML = original;
+      }, 800);
     }
-  };
 
-  window.removeItem = (id) => { delete cart[id]; updateUI(); };
-
-  function animateFeedback(btn) {
-    const original = btn.innerHTML;
-    btn.classList.replace('btn-pink-market', 'btn-success');
-    btn.innerHTML = '<i class="bi bi-check-lg"></i>';
-    setTimeout(() => {
-      btn.classList.replace('btn-success', 'btn-pink-market');
-      btn.innerHTML = original;
-    }, 800);
-  }
-
-  function checkout() {
-    if (Object.keys(cart).length === 0) return alert("Cart is empty!");
-    let pesan = "Hi Admin, I want to order:\n\n";
-    let total = 0;
-    for (let id in cart) {
-      let item = cart[id];
-      pesan += `* ${item.name} (x${item.qty}) - $ ${(item.price * item.qty).toLocaleString()}\n`;
-      total += item.price * item.qty;
+    function checkout() {
+      if (Object.keys(cart).length === 0) return alert("Empty cart!");
+      let msg = "Hi Admin, I want to order:\n";
+      for (let id in cart) {
+        msg += `- ${cart[id].name} (x${cart[id].qty})\n`;
+      }
+      window.open(`https://wa.me/6285943709526?text=${encodeURIComponent(msg)}`, '_blank');
     }
-    pesan += `\n*Total Bill: $ ${total.toLocaleString()}*`;
-    window.open(`https://wa.me/6285943709526?text=${encodeURIComponent(pesan)}`, '_blank');
-    cart = {}; updateUI();
-  }
-</script>
+  </script>
 </body>
 </html>
